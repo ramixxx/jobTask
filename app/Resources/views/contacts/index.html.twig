@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <div class="card">
+    <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Address book</h3>
+    <div class="card-body">
+      <div id="table" class="table-editable">
+        <td>
+          <span class="table-remove">
+            <a href="/contact/new"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 float-right mb-3">Add new contact</button></a>
+          </span>
+        </td>
+        {{ knp_pagination_filter(contacts, {
+            'c.firstName': 'First Name',
+            'c.lastName': 'Last Name',
+            'c.street': 'Street',
+            'c.zip': 'Zip',
+            'c.city': 'City',
+            'c.country': 'Country',
+            'c.phoneNumber': 'Phone Number',
+            'c.birthday': 'Birthday',
+            'c.email': 'Email'
+
+        }) }}
+        <table class="table table-bordered table-responsive-md table-striped text-center" id="contact-table">
+          <thead>
+            <tr>
+              <th class="text-center">{{ knp_pagination_sortable(contacts, 'Firstname', 'c.firstName') }}</th>
+              <th class="text-center">{{ knp_pagination_sortable(contacts, 'Lastname', 'c.lastName') }}</th>
+              <th class="text-center">{{ knp_pagination_sortable(contacts, 'Street', 'c.street') }}</th>
+              <th class="text-center">{{ knp_pagination_sortable(contacts, 'Zip', 'c.zip') }}</th>
+              <th class="text-center">{{ knp_pagination_sortable(contacts, 'City', 'c.city') }}</th>
+              <th class="text-center">{{ knp_pagination_sortable(contacts, 'Country', 'c.country') }}</th>
+              <th class="text-center">{{ knp_pagination_sortable(contacts, 'Phone Number', 'c.phoneNumber') }}</th>
+              <th class="text-center">{{ knp_pagination_sortable(contacts, 'Birthday', 'c.birthday') }}</th>
+              <th class="text-center">{{ knp_pagination_sortable(contacts, 'Email', 'c.email') }}</th>
+              <th class="text-center">Picture</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for contact in contacts %}
+              <tr>
+                <td class="pt-3-half">{{ contact.firstName }}</td>
+                <td class="pt-3-half">{{ contact.lastName }}</td>
+                <td class="pt-3-half">{{ contact.streetAndNumber }}</td>
+                <td class="pt-3-half">{{ contact.zip }}</td>
+                <td class="pt-3-half">{{ contact.city }}</td>
+                <td class="pt-3-half">{{ contact.country }}</td>
+                <td class="pt-3-half">{{ contact.phoneNumber }}</td>
+                <td class="pt-3-half">{{ contact.birthday }}</td>
+                <td class="pt-3-half">{{ contact.email }}</td>
+                <td class="pt-3-half"><img src="{{ asset('uploads/' ~ contact.picture)}}" width="50" height="50" style="border-radius:50px;"/></td>
+                <td>
+                  <span class="table-remove"><button type="button" data-id="{{ contact.id }}"
+                      class="btn btn-danger btn-rounded btn-sm my-0 delete-contact">Delete</button></span>
+                    <span class="table-edit"><a href="/contact/edit/{{ contact.id }}"><button type="button" data-id="{{ contact.id }}"
+                      class="btn btn-success btn-rounded btn-sm my-0">Edit</button></span>
+                </td>
+
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="navigation">
+    {{knp_pagination_render(contacts)}}
+  </div>
+{% endblock %}

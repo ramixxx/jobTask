@@ -1,0 +1,18 @@
+.newContactForm {
+    background-color: #f5f3f3;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.editContactForm {
+	background-color: #f5f3f3;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+label { display: block };
+
+.pagination-centered {
+	text-align:center !important;
+	display: inline-block !important;
+}
